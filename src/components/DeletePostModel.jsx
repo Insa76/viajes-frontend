@@ -1,5 +1,6 @@
 import { useId, useRef } from "react";
 import { API_URL } from "../utils/consts";
+import { Link } from "react-router-dom";
 
 const DeletePostModel = ({ postId, getPost }) => {
   const labelId = useId();
@@ -46,21 +47,23 @@ const DeletePostModel = ({ postId, getPost }) => {
             Are you sure you want to delete this post?
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref={ref}
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+            <Link to="/">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref={ref}
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </Link>
           </div>
         </div>
       </div>

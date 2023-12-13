@@ -4,13 +4,16 @@ import { useContext, useId } from "react";
 import DeletePostModel from "../DeletePostModel";
 import DeleteComModel from "../DeleteComModel";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import "./postItem.css";
 
-const PostItem = ({ post, getPost, onClick }) => {
+const PostItem = ({ coment, post, getPost, onClick }) => {
   const { postId } = useParams();
-  const { auth } = useContext(AuthContext);
+  const { comentId } = useParams();
   const modalId = useId();
+  const { auth } = useContext(AuthContext);
 
   const handleDeleteComent = (comentId) => {
     fetch(`${API_URL}/coments/${postId}/${comentId}`, {
@@ -68,9 +71,14 @@ const PostItem = ({ post, getPost, onClick }) => {
         </div>
 
         <div className="commentPost">
-          <label>
+          <span className="title">
             <b>Comments:</b>
-          </label>
+          </span>
+
+          <i className="icon">
+            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+          </i>
+
           {post.coments.map((coment) => {
             return (
               <div key={coment.id}>
@@ -84,43 +92,36 @@ const PostItem = ({ post, getPost, onClick }) => {
                   <div className="commentGroup1">
                     {new Date(post.createdAt).toDateString()}
                   </div>
-
+                  <div></div>
                   <Link
-                    onClick={(e) => {
+                    /* onClick={(e) => {
                       e.stopPropagation();
-                    }}
+                    }} */
+                    onClick={() => handleDeleteComent(coment._id)}
                     data-bs-toggle="modal"
-                    data-bs-target={"#modal" + post._id}
+                    data-bs-target={"#modal" + coment._id}
                     style={{ fontSize: "20px", color: "red" }}
                   >
                     <HiOutlineTrash />
                   </Link>
+                  <DeleteComModel
+                    getPost={getPost}
+                    modalId={modalId}
+                    comentId={coment._id}
+                  />
 
-                  {/* <button
+                  {/* { <button
                     className="delete-button "
                     onClick={() => handleDeleteComent(coment._id)}
                     style={{ fontSize: "18px", color: "red" }}
                   >
                     <HiOutlineTrash />
-                  </button> */}
+                  </button>}  */}
                 </div>
                 <hr size="8px" color="black" />
               </div>
             );
-
-            {
-              /* <p>
-              <span className="postTitle">{coment.name}</span>
-              <b>{post.author.username}: </b>
-              <span>{post.coments.length}</span>
-            </p>; */
-            }
           })}
-          <DeleteComModel
-            getPost={getPost}
-            modalId={modalId}
-            postId={post._id}
-          />
         </div>
       </section>
     </div>

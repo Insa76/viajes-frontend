@@ -1,7 +1,8 @@
 import { useId, useRef } from "react";
 import { API_URL } from "../utils/consts";
+import { Link } from "react-router-dom";
 
-const DeletePostModel = ({ postId, getPost }) => {
+const DeleteComModel = ({ comentId, postId, getPost }) => {
   const labelId = useId();
   const ref = useRef(null);
 
@@ -25,7 +26,7 @@ const DeletePostModel = ({ postId, getPost }) => {
   return (
     <div
       className="modal fade"
-      id={"modal" + postId}
+      id={"modal" + comentId}
       aria-labelledby={labelId}
       aria-hidden="true"
     >
@@ -43,24 +44,26 @@ const DeletePostModel = ({ postId, getPost }) => {
             ></button>
           </div>
           <div className="modal-body">
-            Are you sure you want to delete this post?
+            Are you sure you want to delete this comment?
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref={ref}
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+            <Link to="/">
+              <button
+                type="button"
+                className="btn btn-secondary "
+                data-bs-dismiss="modal"
+                ref={ref}
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger "
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -68,4 +71,4 @@ const DeletePostModel = ({ postId, getPost }) => {
   );
 };
 
-export default DeletePostModel;
+export default DeleteComModel;

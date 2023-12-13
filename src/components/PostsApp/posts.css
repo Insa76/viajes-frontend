@@ -1,6 +1,16 @@
 .posts {
   flex: 9;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 20px;
+}
+
+.search {
+  display: block;
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
 }

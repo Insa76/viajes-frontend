@@ -20,12 +20,12 @@ const Post = ({ posts, getPost }) => {
 
   return (
     <div style={{ minWidth: "420px" }} className="posts">
-      <Link to="/newPost" className="btn btn-success mb-1">
+      <Link to="/newPost" className="btn btn-success mb-2">
         Create
       </Link>
       <input
         type="search"
-        className="form-control mb-2"
+        className="search"
         placeholder="Search"
         value={search}
         onChange={(e) => {

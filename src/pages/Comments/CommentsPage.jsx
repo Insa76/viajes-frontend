@@ -57,7 +57,7 @@ const ComentsPage = () => {
       method: "POST",
       body: JSON.stringify({
         name: formData.get("name"),
-        artist: formData.get("author"),
+        description: formData.get("author"),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const ComentsPage = () => {
         <button className="commentButton">Create</button>
       </form>
 
-      <h1>{post.title}</h1>
+      {/* <h1>{post.title}</h1>
       {post.coments.map((coment) => {
         return (
           <div key={coment.id} className="commentFormGroup">
@@ -121,7 +121,7 @@ const ComentsPage = () => {
             </div>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 };
