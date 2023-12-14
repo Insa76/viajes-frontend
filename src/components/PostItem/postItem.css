@@ -76,7 +76,7 @@
 
 .postFormGroup {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: baseline;
   font-size: 12px;
 }

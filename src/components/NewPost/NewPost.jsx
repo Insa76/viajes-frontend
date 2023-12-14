@@ -14,7 +14,6 @@ const NewPost = ({ post }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
-  /*  const { user } = useContext(Context); */
 
   const navigate = useNavigate();
 
@@ -23,39 +22,55 @@ const NewPost = ({ post }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+    const user = {
+      username,
+    };
+
     if (!title.trim() && !desc.trim()) return;
 
-    fetch(`${API_URL}/post`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: auth,
-      },
-      body: JSON.stringify({ title: title.trim(), desc: desc.trim() }),
-    }).then((res) => {
-      if (res.status !== 201) return alert("Error creating post");
-
-      navigate("/");
-    });
-    /* if (file) {
-      const data =new FormData();
+    const newPost = {
+      username: user.username,
+      title,
+      desc,
+    };
+    if (file) {
+      const data = new FormData();
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
       newPost.photo = filename;
-      try {
-        await axios.post("/upload", data);
+      /* try {
+        fetch(`${API_URL}/upload`, data)
+        .then((response) => response.JSON());
       } catch (err) {} */
+    }
+
+    try {
+      fetch(`${API_URL}/post`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: auth.token,
+        },
+        body: JSON.stringify({ title: title.trim(), desc: desc.trim() }),
+      }).then((res) => {
+        if (res.status !== 201) return alert("Error creating post");
+
+        window.location.replace("/post/" + res.data._id);
+      });
+    } catch (err) {}
   };
 
   return (
     <div className="write">
       <TopBar />
 
-      <img
-        className="writeImg"
-        src=" https://www.bbva.com/wp-content/uploads/2023/05/salud-financiera-BBVA-viajes-sorpresa-barato.jpg"
-      />
+      {file && (
+        <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
+      )}
+
       <div className="writeFormGroup">
         <label htmlFor="fileInput">
           <i className="writeIcon">
@@ -64,10 +79,6 @@ const NewPost = ({ post }) => {
         </label>
 
         <span className="newPostTitle">New Post</span>
-
-        <button type="submit" className="writeSubmit">
-          Create
-        </button>
       </div>
 
       <form onSubmit={handleSubmit} ref={ref} className="writeForm">
@@ -103,6 +114,9 @@ const NewPost = ({ post }) => {
               setDesc(e.target.value);
             }}
           ></textarea>
+          <button type="submit" className="writeSubmit">
+            Create
+          </button>
         </div>
       </form>
     </div>

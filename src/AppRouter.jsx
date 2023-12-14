@@ -16,6 +16,7 @@ function AppRouter() {
       {/* Rutas Protegidas */}
       <Route element={<PrivateRoutes />}>
         <Route path="/newPost" element={<NewPost />} />
+        <Route path="/newPost/:postId" element={<NewPost />} />
         <Route path="/post/comment" element={<NewComment />} />
         <Route path="/post/:postId" element={<CommentsPage />} />
       </Route>

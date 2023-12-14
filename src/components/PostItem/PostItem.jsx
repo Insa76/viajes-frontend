@@ -37,38 +37,49 @@ const PostItem = ({ coment, post, getPost, onClick }) => {
         onClick();
       }}
     >
-      <picture className="postImg">
-        <img className="postImg" src={post.photo} alt={post.author.username} />
-      </picture>
-      <section className="postInfo">
-        <span className="postTitle">{post.title}</span>
+      {post.photo && <img className="postImg" src={post.photo} alt="" />}
+      {/* <img className="postImg" src={post.photo} alt={post.author.username} /> */}
+
+      <div className="postInfo">
+        <Link
+          to={`/post/${post._id}`}
+          style={{ textDecoration: "none", color: "darkslategrey" }}
+        >
+          <span className="postTitle">{post.title}</span>
+        </Link>
         <span className="postDate">
           {new Date(post.createdAt).toDateString()}
         </span>
-
+      </div>
+      <div>
         <p className="postDesc">{post.desc}</p>
 
-        <div>
-          <Link style={{ fontSize: "20px", color: "green" }} className="icono">
-            <HiOutlinePencilAlt />
-          </Link>
-          <Link
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            data-bs-toggle="modal"
-            data-bs-target={"#modal" + post._id}
-            style={{ fontSize: "20px", color: "red" }}
-          >
-            <HiOutlineTrash />
-          </Link>
+        <Link
+          to="/newPost"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          style={{ fontSize: "20px", color: "darkseagreen" }}
+          className="icono"
+        >
+          <HiOutlinePencilAlt />
+        </Link>
+        <Link
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          data-bs-toggle="modal"
+          data-bs-target={"#modal" + post._id}
+          style={{ fontSize: "20px", color: "coral" }}
+        >
+          <HiOutlineTrash />
+        </Link>
 
-          <DeletePostModel
-            getPost={getPost}
-            modalId={modalId}
-            postId={post._id}
-          />
-        </div>
+        <DeletePostModel
+          getPost={getPost}
+          modalId={modalId}
+          postId={post._id}
+        />
 
         <div className="commentPost">
           <span className="title">
@@ -100,7 +111,7 @@ const PostItem = ({ coment, post, getPost, onClick }) => {
                     onClick={() => handleDeleteComent(coment._id)}
                     data-bs-toggle="modal"
                     data-bs-target={"#modal" + coment._id}
-                    style={{ fontSize: "20px", color: "red" }}
+                    style={{ fontSize: "20px", color: "coral" }}
                   >
                     <HiOutlineTrash />
                   </Link>
@@ -123,7 +134,7 @@ const PostItem = ({ coment, post, getPost, onClick }) => {
             );
           })}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

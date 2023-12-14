@@ -8,7 +8,6 @@ import "./Login.css";
 
 function LoginForm() {
   const ref = useRef(null);
-
   const emailRef = useId();
   const passwordRef = useId();
 

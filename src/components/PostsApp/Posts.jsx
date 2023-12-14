@@ -20,13 +20,13 @@ const Post = ({ posts, getPost }) => {
 
   return (
     <div style={{ minWidth: "420px" }} className="posts">
-      <Link to="/newPost" className="btn btn-success mb-2">
-        Create
+      <Link to="/newPost" className="PostsCreate">
+        Create Post
       </Link>
       <input
         type="search"
         className="search"
-        placeholder="Search"
+        placeholder="Search Post..."
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
@@ -40,7 +40,7 @@ const Post = ({ posts, getPost }) => {
               key={post._id}
               post={post}
               onClick={() => {
-                navigate(`/post/${post._id}`);
+                navigate(`/newPost/${post._id}`);
               }}
             />
           );
