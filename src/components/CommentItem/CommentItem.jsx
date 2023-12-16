@@ -1,13 +1,14 @@
-import "./Comments.css";
+import "./commentItem.css";
 
 import { useContext, useEffect, useRef, useState, useId } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../../utils/consts";
 import { AuthContext } from "../../providers/AuthProvider";
+import { HiOutlineTrash } from "react-icons/hi";
 
 import TopBar from "../../components/NavBar/Nav";
 
-const ComentsPage = () => {
+const ComentItem = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const { auth } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const ComentsPage = () => {
     getPost();
   }, [postId, auth]);
 
-  /* const handleDeleteComent = (comentId) => {
+  const handleDeleteComent = (comentId) => {
     fetch(`${API_URL}/coments/${postId}/${comentId}`, {
       method: "DELETE",
       headers: {
@@ -45,7 +46,7 @@ const ComentsPage = () => {
       if (!res.ok) return alert("Error deleting comment");
       getPost();
     });
-  }; */
+  };
 
   const handleCreateNewComent = (e) => {
     e.preventDefault();
@@ -128,4 +129,4 @@ const ComentsPage = () => {
   );
 };
 
-export default ComentsPage;
+export default ComentItem;

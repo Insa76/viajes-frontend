@@ -7,9 +7,9 @@ const DeleteComModel = ({ comentId, postId, getPost }) => {
   const ref = useRef(null);
 
   const handleDelete = () => {
-    // eliminar la tarea con playlistId
+    // eliminar el comentario del post
     console.log("delete post", postId);
-    fetch(`${API_URL}/post/${postId}`, {
+    fetch(`${API_URL}/coments/${postId}/${comentId}`, {
       method: "DELETE",
       headers: {
         Authorization: localStorage.getItem("token"),

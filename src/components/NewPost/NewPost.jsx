@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TopBar from "../NavBar/Nav";
 
-const NewPost = ({ post }) => {
+const NewPost = () => {
   const ref = useRef(null);
   const titleId = useId();
   const descId = useId();
@@ -19,7 +19,7 @@ const NewPost = ({ post }) => {
 
   const { auth } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -37,14 +37,17 @@ const NewPost = ({ post }) => {
     };
     if (file) {
       const data = new FormData();
-      const filename = Date.now() + file.name;
-      data.append("name", filename);
+      const filename = Date.now() + file.sampleFile;
+      data.append("sampleFile", filename);
       data.append("file", file);
       newPost.photo = filename;
-      /* try {
-        fetch(`${API_URL}/upload`, data)
-        .then((response) => response.JSON());
-      } catch (err) {} */
+      try {
+        await fetch(`http://localhost:4000/upload`, {
+          method: "POST",
+        })
+          .then((res) => res.json())
+          .then((data) => data);
+      } catch (err) {}
     }
 
     try {
@@ -58,9 +61,10 @@ const NewPost = ({ post }) => {
       }).then((res) => {
         if (res.status !== 201) return alert("Error creating post");
 
-        window.location.replace("/post/" + res.data._id);
+        /* window.location.replace("/post/" + res.data._id); */
       });
     } catch (err) {}
+    navigate("/");
   };
 
   return (

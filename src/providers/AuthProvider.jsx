@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [auth, setAuth] = useState(undefined);
+  /* const [isLogged, setIsLogged] = useState(false); */
 
   const login = ({ user, token }) => {
     setAuth({ user, token });
@@ -11,6 +12,7 @@ function AuthProvider({ children }) {
     localStorage.setItem("token", token);
 
     localStorage.setItem("user", JSON.stringify(user));
+    /* setIsLogged(true); */
   };
 
   const logout = () => {
@@ -19,7 +21,7 @@ function AuthProvider({ children }) {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setAuth(null);
-    /*  auth(false); */
+    /* setIsLogged(false); */
   };
 
   useEffect(() => {

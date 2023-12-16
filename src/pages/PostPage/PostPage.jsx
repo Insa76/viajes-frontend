@@ -7,7 +7,8 @@ import Post from "../../components/PostsApp/Posts";
 function PostPage() {
   const [posts, setPosts] = useState([]);
 
-  const { auth } = useContext(AuthContext);
+  /* const { auth } = useContext(AuthContext); */
+  const { auth, logout, login } = useContext(AuthContext);
 
   const getPost = useCallback(() => {
     fetch(`${API_URL}/post`, {

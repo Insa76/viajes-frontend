@@ -6,7 +6,7 @@ import NotFoundPage from "../src/pages/Page404/404Page";
 import PostPage from "./pages/PostPage/PostPage";
 import PrivateRoutes from "./components/PrivateRoutes";
 import NewPost from "../src/components/NewPost/NewPost";
-import NewComment from "./pages/Comments/CommentsPage";
+import NewComment from "../src/components/NewComent/NewComent";
 import CommentsPage from "./pages/Comments/CommentsPage";
 import PostHome from "./pages/PostHome";
 
@@ -17,8 +17,8 @@ function AppRouter() {
       <Route element={<PrivateRoutes />}>
         <Route path="/newPost" element={<NewPost />} />
         <Route path="/newPost/:postId" element={<NewPost />} />
-        <Route path="/post/comment" element={<NewComment />} />
-        <Route path="/post/:postId" element={<CommentsPage />} />
+        <Route path="/post/comment" element={<CommentsPage />} />
+        <Route path="/newComents/:postId" element={<NewComment />} />
       </Route>
 
       {/* Rutas Públicas */}
